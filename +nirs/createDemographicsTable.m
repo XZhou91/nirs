@@ -1,0 +1,24 @@
+function tbl = createDemographicsTable( data )
+%% CREATEDEMOGRAPHCISTABLE - returns a table of demographics info per file
+% 
+% Args:
+%     data - a list of nirs.core.Data or nirs.core.ChannelStats objects
+%     
+% Returns:
+%     tbl  - a table containing demographics variables per item in data
+            
+    % loop over data files
+    for i = 1:length(data)
+        
+        % get demographics 
+        demo = data(i).demographics;
+        
+        % create struct
+        for j = 1:length(demo.keys)
+            tbl(i).(demo.keys{j}) = demo.values{j};
+        end
+    end
+
+    % covert to table
+    tbl = struct2table(tbl);
+end
